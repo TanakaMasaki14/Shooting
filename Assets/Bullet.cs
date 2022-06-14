@@ -14,10 +14,19 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         Vector3 pos = transform.position;
-        pos.z += 0.05f;
+        pos.z += 0.1f;
         transform.position = new Vector3(pos.x, pos.y, pos.z);
         if (pos.z >= 20)
         {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<Enemy>().Damage();
             Destroy(this.gameObject);
         }
     }
